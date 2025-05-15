@@ -17,4 +17,87 @@ type ScholarshipCreated @entity(immutable: true) {
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
+  scholarship: Scholarship!
+}
+
+# Company entity to track company-specific metrics
+type Company @entity(immutable: false) {
+  id: Bytes! # company address
+  scholarships: [Scholarship!]! @derivedFrom(field: "company")
+  totalScholarships: Int!
+  totalFunding: BigInt! # total ETH funded
+  totalFundingReleased: BigInt! # total funds released
+  totalFundingRemaining: BigInt! # total funds remaining in contracts
+  totalApprovedScholars: Int! # total scholars approved
+  totalActiveScholars: Int! # scholars with active scholarships
+  createdAt: BigInt!
+  updatedAt: BigInt!
+}
+
+# Scholarship entity with detailed information
+type Scholarship @entity(immutable: false) {
+  id: Bytes! # scholarship contract address
+  scholarshipId: BigInt!
+  title: String!
+  description: String
+  gpa: BigInt
+  additionalRequirements: String
+  totalAmount: BigInt!
+  remainingAmount: BigInt!
+  deadline: BigInt!
+  status: Int! # 0=Open, 1=Closed, 2=Expired
+  company: Company!
+  applicants: [Scholar!]! @derivedFrom(field: "appliedScholarships")
+  approvedScholars: [Scholar!]! @derivedFrom(field: "approvedScholarships")
+  milestones: [Milestone!]! @derivedFrom(field: "scholarship")
+  transactions: [Transaction!]! @derivedFrom(field: "scholarship")
+  totalMilestones: Int!
+  completedMilestones: Int!
+  completionPercentage: BigDecimal!
+  createdAt: BigInt!
+  updatedAt: BigInt!
+}
+
+# Scholar entity to track student metrics
+type Scholar @entity(immutable: false) {
+  id: Bytes! 
+  appliedScholarships: [Scholarship!]!
+  approvedScholarships: [Scholarship!]!
+  milestones: [Milestone!]! @derivedFrom(field: "student")
+  transactions: [Transaction!]! @derivedFrom(field: "student")
+  totalFundingReceived: BigInt!
+  isActive: Boolean!
+  completedMilestones: Int!
+  totalMilestones: Int!
+  completionPercentage: BigDecimal!
+  createdAt: BigInt!
+  updatedAt: BigInt!
+}
+
+# Milestone entity to track completion status
+type Milestone @entity(immutable: false) {
+  id: String! # scholarship address + milestone ID
+  scholarship: Scholarship!
+  student: Scholar
+  milestoneId: BigInt!
+  title: String!
+  amount: BigInt!
+  isCompleted: Boolean!
+  fundsReleased: Boolean!
+  completedAt: BigInt
+  fundReleasedAt: BigInt
+  createdAt: BigInt!
+}
+
+# Transaction entity to track fund releases
+type Transaction @entity(immutable: true) {
+  id: Bytes! # tx hash + log index
+  scholarship: Scholarship!
+  student: Scholar!
+  milestone: Milestone!
+  amount: BigInt!
+  milestoneId: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }

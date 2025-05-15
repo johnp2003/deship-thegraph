@@ -18,12 +18,51 @@ dataSources:
       entities:
         - OwnershipTransferred
         - ScholarshipCreated
+        - Company
+        - Scholar
+        - Scholarship
+        - Milestone
+        - Transaction
       abis:
         - name: ScholarshipFactory
           file: ./abis/ScholarshipFactory.json
+        - name: Scholarship
+          file: ./abis/Scholarship.json
       eventHandlers:
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
         - event: ScholarshipCreated(indexed address,indexed address,string,uint256,uint256)
           handler: handleScholarshipCreated
       file: ./src/scholarship-factory.ts
+templates:
+  - kind: ethereum
+    name: Scholarship
+    network: scroll-sepolia
+    source:
+      abi: Scholarship
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.9
+      language: wasm/assemblyscript
+      file: ./src/scholarship.ts
+      entities:
+        - Scholarship
+        - Scholar
+        - Milestone
+        - Transaction
+      abis:
+        - name: Scholarship
+          file: ./abis/Scholarship.json
+      eventHandlers:
+        - event: StudentApplied(address)
+          handler: handleStudentApplied
+        - event: StudentApproved(address)
+          handler: handleStudentApproved
+        - event: MilestoneCompleted(address,uint256)
+          handler: handleMilestoneCompleted
+        - event: FundsReleased(address,uint256,uint256)
+          handler: handleFundsReleased
+        - event: ScholarshipStatusUpdated(uint8)
+          handler: handleScholarshipStatusUpdated
+        - event: ScholarshipDetailsUpdated(string,string,uint256,string,uint256)
+          handler: handleScholarshipDetailsUpdated
