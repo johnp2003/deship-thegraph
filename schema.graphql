@@ -1,0 +1,20 @@
+type OwnershipTransferred @entity(immutable: true) {
+  id: Bytes!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ScholarshipCreated @entity(immutable: true) {
+  id: Bytes!
+  scholarshipAddress: Bytes! # address
+  company: Bytes! # address
+  scholarshipTitle: String! # string
+  totalAmount: BigInt! # uint256
+  scholarshipId: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

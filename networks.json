@@ -1,0 +1,8 @@
+{
+  "scroll-sepolia": {
+    "ScholarshipFactory": {
+      "address": "0x39F88Dc30438379135c6411AD65374F16Da37866",
+      "startBlock": 9897012
+    }
+  }
+}
