@@ -8,7 +8,7 @@ dataSources:
     name: ScholarshipFactory
     network: scroll-sepolia
     source:
-      address: "0x39F88Dc30438379135c6411AD65374F16Da37866"
+      address: "0x406Ef3A0fAd1B7347C45a1d4ABBb09AF7b4d203f"
       abi: ScholarshipFactory
       startBlock: 9897012
     mapping:

@@ -48,12 +48,22 @@
       },
       {
         "internalType": "address",
+        "name": "_verifierAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
         "name": "_roleNFTAddress",
         "type": "address"
       }
     ],
     "stateMutability": "payable",
     "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "ReentrancyGuardReentrantCall",
+    "type": "error"
   },
   {
     "anonymous": false,
@@ -199,7 +209,28 @@
     "type": "function"
   },
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "uint256[2]",
+        "name": "a",
+        "type": "uint256[2]"
+      },
+      {
+        "internalType": "uint256[2][2]",
+        "name": "b",
+        "type": "uint256[2][2]"
+      },
+      {
+        "internalType": "uint256[2]",
+        "name": "c",
+        "type": "uint256[2]"
+      },
+      {
+        "internalType": "uint256[4]",
+        "name": "input",
+        "type": "uint256[4]"
+      }
+    ],
     "name": "applyForScholarship",
     "outputs": [],
     "stateMutability": "nonpayable",
@@ -519,6 +550,11 @@
         "internalType": "uint256",
         "name": "fundsWithdrawn",
         "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "impactScore",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -581,6 +617,19 @@
     "name": "updateScholarshipDetails",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "verifier",
+    "outputs": [
+      {
+        "internalType": "contract IGroth16Verifier",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
